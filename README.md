@@ -1,9 +1,9 @@
-# Email AI Support System
+﻿# Email AI Support System
 
 AI-powered email support processing pipeline.
 
 ```
-Email → Backend (IMAP polling) → ML Service (mock) → PostgreSQL → Frontend (read-only)
+Email тЖТ Backend (IMAP polling) тЖТ ML Service (mock) тЖТ PostgreSQL тЖТ Frontend (read-only)
 ```
 
 ## Architecture
@@ -49,14 +49,14 @@ docker-compose up --build
 
 ## How It Works
 
-1. **Email Ingestion** — Backend polls IMAP mailbox every 30 seconds
-2. **Storage** — New emails are saved to PostgreSQL with status `NEW`
-3. **ML Analysis** — Each email is sent to the ML mock service for classification
+1. **Email Ingestion** тАФ Backend polls IMAP mailbox every 30 seconds
+2. **Storage** тАФ New emails are saved to PostgreSQL with status `NEW`
+3. **ML Analysis** тАФ Each email is sent to the ML mock service for classification
 4. **Status Assignment** (business logic):
-   - `sentiment = negative` → **ESCALATED**
-   - `complexity = high` → **NEEDS_OPERATOR**
-   - `complexity = low` → **PROCESSED**
-5. **Frontend** — Read-only dashboard auto-refreshes every 5 seconds
+   - `sentiment = negative` тЖТ **ESCALATED**
+   - `complexity = high` тЖТ **NEEDS_OPERATOR**
+   - `complexity = low` тЖТ **PROCESSED**
+5. **Frontend** тАФ Read-only dashboard auto-refreshes every 5 seconds
 
 ## API Endpoints
 
@@ -69,7 +69,7 @@ docker-compose up --build
 | POST   | `/api/v1/ml/analyze`      | ML analysis endpoint     |
 | GET    | `/health`                 | Health check             |
 
-> **No POST/PUT/DELETE for emails** — data comes only from IMAP pipeline.
+> **No POST/PUT/DELETE for emails** тАФ data comes only from IMAP pipeline.
 
 ## Frontend Features
 
@@ -78,49 +78,49 @@ docker-compose up --build
 - Search by sender/subject
 - CSV export (respects active filters)
 - Auto-refresh every 5 seconds
-- **No create/edit/delete buttons** — read-only by design
+- **No create/edit/delete buttons** тАФ read-only by design
 
 ## Project Structure
 
 ```
 hackaton/
-├── backend/
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── main.py              # FastAPI app + scheduler
-│   │   ├── config.py            # Settings from ENV
-│   │   ├── database.py          # SQLAlchemy engine
-│   │   ├── models.py            # Email ORM model
-│   │   ├── schemas.py           # Pydantic schemas
-│   │   ├── routes/
-│   │   │   ├── emails.py        # Read-only email API
-│   │   │   └── ml.py            # ML analysis endpoint
-│   │   └── services/
-│   │       ├── email_ingestion.py  # IMAP polling
-│   │       ├── ml_service.py       # ML mock (replaceable)
-│   │       └── pipeline.py         # Processing pipeline
-│   ├── Dockerfile
-│   └── requirements.txt
-├── frontend/
-│   ├── src/
-│   │   ├── main.tsx
-│   │   ├── App.tsx
-│   │   ├── api.ts
-│   │   ├── types.ts
-│   │   ├── index.css
-│   │   └── components/
-│   │       ├── EmailTable.tsx
-│   │       ├── StatusFilter.tsx
-│   │       └── ExportButton.tsx
-│   ├── index.html
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── vite.config.ts
-│   └── Dockerfile
-├── docker-compose.yml
-├── .env.example
-├── .env
-└── README.md
+тФЬтФАтФА backend/
+тФВ   тФЬтФАтФА app/
+тФВ   тФВ   тФЬтФАтФА __init__.py
+тФВ   тФВ   тФЬтФАтФА main.py              # FastAPI app + scheduler
+тФВ   тФВ   тФЬтФАтФА config.py            # Settings from ENV
+тФВ   тФВ   тФЬтФАтФА database.py          # SQLAlchemy engine
+тФВ   тФВ   тФЬтФАтФА models.py            # Email ORM model
+тФВ   тФВ   тФЬтФАтФА schemas.py           # Pydantic schemas
+тФВ   тФВ   тФЬтФАтФА routes/
+тФВ   тФВ   тФВ   тФЬтФАтФА emails.py        # Read-only email API
+тФВ   тФВ   тФВ   тФФтФАтФА ml.py            # ML analysis endpoint
+тФВ   тФВ   тФФтФАтФА services/
+тФВ   тФВ       тФЬтФАтФА email_ingestion.py  # IMAP polling
+тФВ   тФВ       тФЬтФАтФА ml_service.py       # ML mock (replaceable)
+тФВ   тФВ       тФФтФАтФА pipeline.py         # Processing pipeline
+тФВ   тФЬтФАтФА Dockerfile
+тФВ   тФФтФАтФА requirements.txt
+тФЬтФАтФА frontend/
+тФВ   тФЬтФАтФА src/
+тФВ   тФВ   тФЬтФАтФА main.tsx
+тФВ   тФВ   тФЬтФАтФА App.tsx
+тФВ   тФВ   тФЬтФАтФА api.ts
+тФВ   тФВ   тФЬтФАтФА types.ts
+тФВ   тФВ   тФЬтФАтФА index.css
+тФВ   тФВ   тФФтФАтФА components/
+тФВ   тФВ       тФЬтФАтФА EmailTable.tsx
+тФВ   тФВ       тФЬтФАтФА StatusFilter.tsx
+тФВ   тФВ       тФФтФАтФА ExportButton.tsx
+тФВ   тФЬтФАтФА index.html
+тФВ   тФЬтФАтФА package.json
+тФВ   тФЬтФАтФА tsconfig.json
+тФВ   тФЬтФАтФА vite.config.ts
+тФВ   тФФтФАтФА Dockerfile
+тФЬтФАтФА docker-compose.yml
+тФЬтФАтФА .env.example
+тФЬтФАтФА .env
+тФФтФАтФА README.md
 ```
 
 ## Replacing ML Mock with Real LLM
